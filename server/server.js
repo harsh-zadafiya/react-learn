@@ -49,10 +49,10 @@ app.use("/graphql", expressMiddleware(apolloServer));
 
 connectToDb((url, err) => {
   if (!err) {
-    app.listen(3030, () => {
-      console.log("Express Server started on port 3030");
+    app.listen(3031, () => {
+      console.log("Express Server started on port 3031");
       console.log(
-        "GraphQl Server started on port http://localhost:3030/graphql"
+        "GraphQl Server started on port http://localhost:3031/graphql"
       );
       console.log("MongoDb connected to ", url);
     });

@@ -3,7 +3,7 @@ scalar GraphQlDate
 type Emp {
   first_name: String
   last_name: String
-  age: Int
+  age: String
   joining_date: String
   title: String
   dept: String
@@ -14,7 +14,7 @@ type Emp {
 input EmpInputs {
   first_name: String
   last_name: String
-  age: Int
+  age: String
   joining_date: String
   title: String
   dept: String

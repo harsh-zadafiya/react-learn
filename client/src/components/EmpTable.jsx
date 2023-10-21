@@ -10,9 +10,9 @@ class EmpTable extends Component {
     });
 
     return (
-      <div class="container">
-        <table class="table table-bordered">
-          <thead class="thead-dark">
+      <div className="container">
+        <table className="table table-bordered">
+          <thead className="thead-dark">
             <tr>
               <th>First Name</th>
               <th>Last Name</th>

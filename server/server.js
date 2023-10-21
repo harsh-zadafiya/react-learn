@@ -1,3 +1,7 @@
+// Harsh Zadafiya 8866930 - backend/fix bug
+// Rohit Banwal   8879715 - frontend
+// Kishan Joshi
+
 import express from "express";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";

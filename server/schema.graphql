@@ -1,0 +1,33 @@
+scalar GraphQlDate
+
+type Emp {
+  first_name: String
+  last_name: String
+  age: Int
+  joining_date: String
+  title: String
+  dept: String
+  emp_type: String
+  status: String
+}
+
+input EmpInputs {
+  first_name: String
+  last_name: String
+  age: Int
+  joining_date: String
+  title: String
+  dept: String
+  emp_type: String
+  status: String
+}
+
+type Query {
+  name: String
+  empList: [Emp]
+}
+
+type Mutation {
+  sendName(name: String): String
+  empAdd(emp: EmpInputs): Emp
+}

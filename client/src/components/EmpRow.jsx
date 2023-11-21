@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "../css/common.css";
 
 const EmpRow = ({ emp }) => {
   console.log(emp);
@@ -13,7 +14,9 @@ const EmpRow = ({ emp }) => {
       <td>{emp.emp_type}</td>
       <td>{emp.status ? "Working" : "Working"}</td>
       <td>
-        <Link to={`/emp/${emp._id}`}>View EMp</Link>
+        <Link className="button" to={`/emp/${emp._id}`}>
+          Empolyee Detail
+        </Link>
       </td>
     </tr>
   );

@@ -71,6 +71,7 @@ class EmpView extends Component {
           </div>
           <div className="form-group mt-3">
             <input
+              disabled
               type="text"
               name="last_name"
               defaultValue={emp.last_name}
@@ -80,22 +81,31 @@ class EmpView extends Component {
           </div>
           <div className="form-group mt-3">
             <input
+              disabled
               type="text"
               name="age"
+              defaultValue={emp.age}
               className="form-control"
               placeholder="Age"
             />
           </div>
           <div className="form-group mt-3">
             <input
+              disabled
               type="text"
+              defaultValue={emp.joining_date}
               name="joining_date"
               className="form-control"
               placeholder="Joining Date"
             />
           </div>
           <div className="form-group mt-3">
-            <select name="title" className="form-control">
+            <select
+              name="title"
+              className="form-control"
+              value={emp.title}
+              disabled
+            >
               <option disabled selected value="">
                 Select Title
               </option>
@@ -106,7 +116,12 @@ class EmpView extends Component {
             </select>
           </div>
           <div className="form-group mt-3">
-            <select name="dept" className="form-control">
+            <select
+              name="dept"
+              className="form-control"
+              value={emp.dept}
+              disabled
+            >
               <option disabled selected value="">
                 Select Department
               </option>
@@ -117,7 +132,12 @@ class EmpView extends Component {
             </select>
           </div>
           <div className="form-group mt-3">
-            <select name="emp_type" className="form-control">
+            <select
+              disabled
+              name="emp_type"
+              className="form-control"
+              value={emp.emp_type}
+            >
               <option disabled selected value="">
                 Select Employment Type
               </option>
@@ -129,8 +149,10 @@ class EmpView extends Component {
           </div>
           <div className="form-group mt-3">
             <input
+              disabled
               type="text"
               name="status"
+              value="Working"
               className="form-control"
               placeholder="Status"
             />

@@ -27,7 +27,7 @@ class EmpAdd extends Component {
     })
       .then((res) => res.json())
       .then((body) => {
-        alert("Empployee Added");
+        toast.success("Empployee Added");
       });
   };
 
@@ -153,8 +153,8 @@ class EmpAdd extends Component {
               placeholder="Status"
             />
           </div>
-          <button type="submit" className="btn btn-primary mt-4">
-            Add
+          <button type="submit" className="button mt-4 ">
+            Add Employee
           </button>
         </form>
       </div>

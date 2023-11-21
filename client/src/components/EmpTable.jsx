@@ -22,6 +22,7 @@ class EmpTable extends Component {
               <th>Department</th>
               <th>Employee Type</th>
               <th>Status</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>{empRow}</tbody>

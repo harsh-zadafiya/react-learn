@@ -8,6 +8,7 @@ import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { readFile } from "node:fs/promises";
 import { connectToDb, getDb } from "./db.js";
+import { ObjectId } from "mongodb";
 
 let db;
 
@@ -23,6 +24,38 @@ const empAdd = async (_root, { emp }) => {
   return savedEmp;
 };
 
+const empUpdate = async (_root, { emp }) => {
+  const { _id, ...updateData } = emp;
+
+  // Use updateOne to perform an update
+  await db
+    .collection("employees")
+    .updateOne({ _id: ObjectId(_id) }, { $set: updateData });
+
+  // Fetch and return the updated employee
+  const updatedEmp = await db
+    .collection("employees")
+    .findOne({ _id: ObjectId(_id) });
+  return updatedEmp;
+};
+
+const empDelete = async (_root, { emp }) => {
+  const { _id } = emp;
+
+  const result = await db
+    .collection("employees")
+    .deleteOne({ _id: ObjectId(_id) });
+
+  if (result.deletedCount === 1) {
+    return { success: true, message: "Employee deleted successfully" };
+  } else {
+    return {
+      success: false,
+      message: "Employee not found or delete operation failed",
+    };
+  }
+};
+
 const empList = async () => {
   const emps = await db.collection("employees").find({}).toArray();
   return emps;
@@ -33,6 +66,14 @@ const typeDefs = await readFile("./schema.graphql", "utf8");
 const resolvers = {
   Query: {
     name: () => "Harsh",
+    emp: async (parent, args) => {
+      const { id } = args;
+
+      const emps = await db
+        .collection("employees")
+        .findOne({ _id: ObjectId(id) });
+      return emps;
+    },
     empList: empList,
   },
   Mutation: {
@@ -40,6 +81,8 @@ const resolvers = {
       return name + "!";
     },
     empAdd: empAdd,
+    empUpdate: empUpdate,
+    empDelete: empDelete,
   },
 };
 

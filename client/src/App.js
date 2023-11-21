@@ -4,11 +4,21 @@
 // Ramandeep kaur 8885823 - frontend
 
 import EmpList from "./components/EmpList";
+import Navigation from "./Pages/navigation/Navigation";
+import EmpAdd from "./Pages/empadd/EmpAdd";
+import { Routes, Route } from "react-router-dom";
+import EmpView from "./Pages/employee/EmpView";
 
 function App() {
   return (
     <div className="App">
-      <EmpList />
+      <Routes>
+        <Route path="/" element={<Navigation />}>
+          <Route path="/emp/:empId?" element={<EmpView />} />
+          <Route path="/empadd/" element={<EmpAdd />} />
+          <Route index element={<EmpList />} />
+        </Route>
+      </Routes>
     </div>
   );
 }

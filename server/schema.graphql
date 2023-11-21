@@ -1,6 +1,7 @@
 scalar GraphQlDate
 
 type Emp {
+  _id: String
   first_name: String
   last_name: String
   age: String
@@ -22,12 +23,27 @@ input EmpInputs {
   status: String
 }
 
+input EmpInputsUpdate {
+  id: ID!
+  first_name: String
+  last_name: String
+  age: String
+  joining_date: String
+  title: String
+  dept: String
+  emp_type: String
+  status: String
+}
+
 type Query {
   name: String
+  emp(id: ID): Emp
   empList: [Emp]
 }
 
 type Mutation {
   sendName(name: String): String
   empAdd(emp: EmpInputs): Emp
+  empUpdate(emp: EmpInputsUpdate): Emp
+  empDelete(id: ID!): Boolean
 }

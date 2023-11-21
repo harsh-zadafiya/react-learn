@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "../css/common.css";
 
 const EmpRow = ({ emp }) => {
-  console.log(emp);
+  // console.log(emp);
   return (
     <tr>
       <td>{emp.first_name}</td>

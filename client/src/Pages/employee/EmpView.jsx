@@ -10,7 +10,7 @@ class EmpView extends Component {
     };
   }
   componentDidMount() {
-    console.log("optionalParam :: ", this.props);
+    // console.log("optionalParam :: ", this.props);
 
     fetch("/graphql", {
       method: "POST",
@@ -51,7 +51,7 @@ class EmpView extends Component {
 
   render() {
     const emp = this.state.emp;
-    console.log(emp);
+    // console.log(emp);
     if (JSON.stringify(emp) === "{}") {
       return <div>No Data Found! </div>;
     }

@@ -44,7 +44,6 @@ const empDelete = async (_root, args) => {
   const result = await db
     .collection("employees")
     .deleteOne({ _id: new ObjectId(id) });
-  console.log(result);
   if (result.deletedCount == 1) {
     return { success: true, message: "Employee deleted successfully" };
   } else {

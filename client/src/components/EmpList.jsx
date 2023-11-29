@@ -84,7 +84,7 @@ class EmpList extends Component {
   };
 
   handleDelete = (id) => {
-    console.log("id ::::: ", id);
+    // console.log("id ::::: ", id);
     if (id) {
       this.deleteEmployee(id);
     }

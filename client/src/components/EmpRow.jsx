@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "../css/common.css";
-
-const EmpRow = ({ emp }) => {
+import { Icon } from "@iconify/react";
+const EmpRow = ({ emp, handleDelete }) => {
   // console.log(emp);
   return (
     <tr>
@@ -15,7 +15,13 @@ const EmpRow = ({ emp }) => {
       <td>{emp.status ? "Working" : "Working"}</td>
       <td>
         <Link className="button" to={`/emp/${emp._id}`}>
-          Empolyee Detail
+          <Icon icon="bxs:user-detail" />
+        </Link>{" "}
+        <Link className="button" to={`/empUpdate/${emp._id}`}>
+          <Icon icon="solar:server-square-update-outline" />
+        </Link>{" "}
+        <Link className="button" onClick={() => handleDelete(emp._id)}>
+          <Icon icon="fluent:delete-12-filled" />
         </Link>
       </td>
     </tr>

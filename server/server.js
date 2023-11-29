@@ -25,28 +25,27 @@ const empAdd = async (_root, { emp }) => {
 };
 
 const empUpdate = async (_root, { emp }) => {
-  const { _id, ...updateData } = emp;
+  const { id, ...updateData } = emp;
 
-  // Use updateOne to perform an update
+  console.log(emp);
   await db
     .collection("employees")
-    .updateOne({ _id: ObjectId(_id) }, { $set: updateData });
-
-  // Fetch and return the updated employee
+    .updateOne({ _id: new ObjectId(id) }, { $set: updateData });
   const updatedEmp = await db
     .collection("employees")
-    .findOne({ _id: ObjectId(_id) });
+    .findOne({ _id: new ObjectId(id) });
   return updatedEmp;
 };
 
-const empDelete = async (_root, { emp }) => {
-  const { _id } = emp;
+const empDelete = async (_root, args) => {
+  console.log(args);
+  const { id } = args;
 
   const result = await db
     .collection("employees")
-    .deleteOne({ _id: ObjectId(_id) });
-
-  if (result.deletedCount === 1) {
+    .deleteOne({ _id: new ObjectId(id) });
+  console.log(result);
+  if (result.deletedCount == 1) {
     return { success: true, message: "Employee deleted successfully" };
   } else {
     return {

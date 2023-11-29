@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { toast } from "react-toastify";
 import EmpTable from "./EmpTable";
 
 class EmpList extends Component {
@@ -27,7 +28,7 @@ class EmpList extends Component {
     }
   };
 
-  componentDidMount() {
+  getAllEmployee = () => {
     fetch("/graphql", {
       method: "POST",
       headers: {
@@ -56,7 +57,38 @@ class EmpList extends Component {
           orignalEmpList: body.data.empList,
         });
       });
+  };
+
+  componentDidMount() {
+    this.getAllEmployee();
   }
+
+  deleteEmployee = (empid) => {
+    fetch("/graphql", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        query: `mutation Mutation($empDeleteId: ID!) {
+            empDelete(id: $empDeleteId)
+          }`,
+        variables: { empDeleteId: empid },
+      }),
+    })
+      .then((res) => res.json())
+      .then((body) => {
+        this.getAllEmployee();
+        toast.success("Empployee Deleted");
+      });
+  };
+
+  handleDelete = (id) => {
+    console.log("id ::::: ", id);
+    if (id) {
+      this.deleteEmployee(id);
+    }
+  };
 
   render() {
     return (
@@ -75,7 +107,11 @@ class EmpList extends Component {
           </select>
         </div>
         <h1 className="display-4">{this.state.name}</h1> <hr className="my-4" />
-        <EmpTable emps={this.state.emps} /> <hr className="my-4" />
+        <EmpTable
+          emps={this.state.emps}
+          handleDelete={this.handleDelete}
+        />{" "}
+        <hr className="my-4" />
       </div>
     );
   }

@@ -8,6 +8,7 @@ import Navigation from "./Pages/navigation/Navigation";
 import EmpAdd from "./Pages/empadd/EmpAdd";
 import { Routes, Route } from "react-router-dom";
 import EmpView from "./Pages/employee/EmpView";
+import EmpUpdate from "./Pages/empUpdate/EmpUpdate";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigation />}>
           <Route path="/emp/:empId?" element={<EmpView />} />
+          <Route path="/empUpdate/:empId?" element={<EmpUpdate />} />
           <Route path="/empadd/" element={<EmpAdd />} />
           <Route index element={<EmpList />} />
         </Route>

@@ -3,10 +3,10 @@ import EmpRow from "./EmpRow";
 
 class EmpTable extends Component {
   render() {
-    const { emps } = this.props;
+    const { emps, handleDelete } = this.props;
 
     const empRow = emps.map((emp) => {
-      return <EmpRow emp={emp} />;
+      return <EmpRow emp={emp} handleDelete={handleDelete} />;
     });
 
     return (

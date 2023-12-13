@@ -35,7 +35,7 @@ class EmpRetirement extends Component {
 
     const upcomingRetirements = this.state.emps.filter((emp) => {
       const joiningDate = moment(emp.joining_date);
-      const retirementDate = joiningDate.clone().add(65, "years"); // Assuming retirement age is 60
+      const retirementDate = joiningDate.clone().add(65, "years"); // Assuming retirement age is 65
 
       return retirementDate.isBetween(currentDate, sixMonthsFromNow);
     });

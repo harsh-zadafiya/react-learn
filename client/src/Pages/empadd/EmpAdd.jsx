@@ -76,7 +76,7 @@ class EmpAdd extends Component {
       toast.warn("Please add Your first name");
     } else if (last_name === "") {
       toast.warn("Please add last name");
-    } else if (age === "" || isNaN(age) || age < 20 || age > 65) {
+    } else if (age === "" || isNaN(age) || age < 20 || age > 64) {
       toast.warn("Please add valid Age");
     } else {
       this.createEmployee({

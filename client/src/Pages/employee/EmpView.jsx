@@ -148,8 +148,13 @@ class EmpView extends Component {
             </select>
           </div>
           <div className="form-group mt-3">
-            <select name="status" className="form-control" value={emp.status}>
-              <option disabled selected value="">
+            <select
+              disabled
+              name="status"
+              className="form-control"
+              value={emp.status}
+            >
+              <option selected value="">
                 Select Status
               </option>
               <option value="Working">Working</option>

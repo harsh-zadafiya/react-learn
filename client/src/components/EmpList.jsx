@@ -19,7 +19,7 @@ class EmpList extends Component {
 
     if (employeeType !== "AllEmployee") {
       const employees = this.state.orignalEmpList.filter(
-        (emp) => emp.emp_type == employeeType
+        (emp) => emp.emp_type === employeeType
       );
 
       this.setState({ emps: employees });

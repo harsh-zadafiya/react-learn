@@ -1,3 +1,4 @@
+import moment from "moment";
 import { Component } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -145,6 +146,7 @@ class EmpUpdate extends Component {
         >
           <div className="form-group mt-3">
             <input
+              disabled
               type="text"
               name="first_name"
               className="form-control"
@@ -155,6 +157,7 @@ class EmpUpdate extends Component {
           </div>
           <div className="form-group mt-3">
             <input
+              disabled
               type="text"
               name="last_name"
               className="form-control"
@@ -165,6 +168,7 @@ class EmpUpdate extends Component {
           </div>
           <div className="form-group mt-3">
             <input
+              disabled
               type="text"
               name="age"
               className="form-control"
@@ -175,12 +179,13 @@ class EmpUpdate extends Component {
           </div>
           <div className="form-group mt-3">
             <input
+              disabled
               type="text"
               name="joining_date"
               className="form-control"
               placeholder="Joining Date"
               onChange={(e) => this.handleOnChange(e)}
-              value={employeeDetail?.joining_date}
+              value={moment(employeeDetail?.joining_date).format("YYYY-MM-DD")}
             />
           </div>
           <div className="form-group mt-3">
@@ -245,14 +250,7 @@ class EmpUpdate extends Component {
               <option value="Retired">Retired</option>
             </select>
           </div>
-          {/* <div className="form-group mt-3">
-            <input
-              type="text"
-              name="status"
-              className="form-control"
-              placeholder="Status"
-            />
-          </div> */}
+
           <button
             type="submit"
             className="button mt-4 "

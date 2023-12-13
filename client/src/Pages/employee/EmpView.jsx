@@ -38,7 +38,7 @@ class EmpView extends Component {
         const allEmployee = body.data.empList;
 
         if (allEmployee.length > 0) {
-          const employee = allEmployee.find((d) => d._id == this.props.empId);
+          const employee = allEmployee.find((d) => d._id === this.props.empId);
 
           if (employee) {
             this.setState({
@@ -148,14 +148,13 @@ class EmpView extends Component {
             </select>
           </div>
           <div className="form-group mt-3">
-            <input
-              disabled
-              type="text"
-              name="status"
-              value="Working"
-              className="form-control"
-              placeholder="Status"
-            />
+            <select name="status" className="form-control" value={emp.status}>
+              <option disabled selected value="">
+                Select Status
+              </option>
+              <option value="Working">Working</option>
+              <option value="Retired">Retired</option>
+            </select>
           </div>
         </form>
       </div>

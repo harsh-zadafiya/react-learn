@@ -29,6 +29,15 @@ const Navigation = () => {
               Employee Add
             </Link>
           </li>
+          <li>
+            <Link
+              className="nav-link"
+              to="/empRetirement"
+              style={{ marginRight: "90px" }}
+            >
+              Upcoming Retirement
+            </Link>
+          </li>
         </ul>
       </nav>
       <Outlet />

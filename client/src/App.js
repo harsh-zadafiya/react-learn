@@ -9,6 +9,7 @@ import EmpAdd from "./Pages/empadd/EmpAdd";
 import { Routes, Route } from "react-router-dom";
 import EmpView from "./Pages/employee/EmpView";
 import EmpUpdate from "./Pages/empUpdate/EmpUpdate";
+import EmpRetirement from "./Pages/empRetirement/EmpRetirement";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/empUpdate/:empId?" element={<EmpUpdate />} />
           <Route path="/empadd/" element={<EmpAdd />} />
           <Route index element={<EmpList />} />
+          <Route path="/empRetirement" element={<EmpRetirement />} />
         </Route>
       </Routes>
     </div>

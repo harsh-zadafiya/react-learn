@@ -1,12 +1,13 @@
-import { Component } from "react";
+import moment from "moment";
+import React, { Component } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import EmpTable from "./EmpTable";
+import EmpTable from "../../components/EmpTable";
 
-class EmpList extends Component {
+class EmpRetirement extends Component {
   constructor() {
     super();
     this.state = {
-      name: "Employee Details",
+      name: "Upcoming Retirement",
       emps: [],
       orignalEmpList: [],
       empType: "AllEmployee",
@@ -28,6 +29,20 @@ class EmpList extends Component {
     }
   };
 
+  retirementEmployee = () => {
+    const currentDate = moment();
+    const sixMonthsFromNow = moment().add(6, "months");
+
+    const upcomingRetirements = this.state.emps.filter((emp) => {
+      const joiningDate = moment(emp.joining_date);
+      const retirementDate = joiningDate.clone().add(65, "years"); // Assuming retirement age is 60
+
+      return retirementDate.isBetween(currentDate, sixMonthsFromNow);
+    });
+    console.log(upcomingRetirements);
+    this.setState({ emps: upcomingRetirements });
+  };
+
   getAllEmployee = () => {
     fetch("/graphql", {
       method: "POST",
@@ -36,18 +51,18 @@ class EmpList extends Component {
       },
       body: JSON.stringify({
         query: `query {
-            empList {
-              _id
-              first_name
-              last_name
-              age
-              joining_date
-              title
-              dept
-              emp_type
-              status
-            }
-          }`,
+                empList {
+                  _id
+                  first_name
+                  last_name
+                  age
+                  joining_date
+                  title
+                  dept
+                  emp_type
+                  status
+                }
+              }`,
       }),
     })
       .then((res) => res.json())
@@ -60,7 +75,7 @@ class EmpList extends Component {
   };
 
   componentDidMount() {
-    this.getAllEmployee();
+    this.retirementEmployee();
   }
 
   deleteEmployee = (empid) => {
@@ -71,8 +86,8 @@ class EmpList extends Component {
       },
       body: JSON.stringify({
         query: `mutation Mutation($empDeleteId: ID!) {
-            empDelete(id: $empDeleteId)
-          }`,
+                empDelete(id: $empDeleteId)
+              }`,
         variables: { empDeleteId: empid },
       }),
     })
@@ -105,19 +120,6 @@ class EmpList extends Component {
           draggable
           pauseOnHover
         />
-        <div className="mt-4 mb-4">
-          <label className="me-3">Empployee Type</label>
-          <select
-            value={this.state.empType}
-            onChange={this.handleEmpTypeChange}
-          >
-            <option value="AllEmployee">All Employee</option>
-            <option value="FullTime">FullTimeEmployee</option>
-            <option value="PartTime">PartTimeEmployee</option>
-            <option value="Contract">ContractEmployee</option>
-            <option value="Seasonal">SeasonalEmployee</option>
-          </select>
-        </div>
         <h1 className="display-4">{this.state.name}</h1> <hr className="my-4" />
         <EmpTable
           emps={this.state.emps}
@@ -129,4 +131,4 @@ class EmpList extends Component {
   }
 }
 
-export default EmpList;
+export default EmpRetirement;

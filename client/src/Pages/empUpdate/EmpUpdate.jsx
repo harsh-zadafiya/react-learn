@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -7,7 +7,6 @@ class EmpUpdate extends Component {
   constructor() {
     super();
     this.state = {
-      name: "Employee Details",
       emp: {},
     };
   }
@@ -36,7 +35,8 @@ class EmpUpdate extends Component {
     })
       .then((res) => res.json())
       .then((body) => {
-        toast.success("Empployee Updated");
+        const navigate = this.props.navigate;
+        navigate("/");
       });
   };
 
@@ -69,7 +69,7 @@ class EmpUpdate extends Component {
         const allEmployee = body.data.empList;
 
         if (allEmployee.length > 0) {
-          const employee = allEmployee.find((d) => d._id == this.props.empId);
+          const employee = allEmployee.find((d) => d._id === this.props.empId);
           console.log(employee);
           if (employee) {
             this.setState({
@@ -116,6 +116,7 @@ class EmpUpdate extends Component {
       this.setState({
         emp: {},
       });
+      toast.success("Empployee Updated");
     }
   };
 
@@ -231,14 +232,32 @@ class EmpUpdate extends Component {
             </select>
           </div>
           <div className="form-group mt-3">
+            <select
+              name="status"
+              className="form-control"
+              onChange={(e) => this.handleOnChange(e)}
+              value={employeeDetail?.status}
+            >
+              <option disabled selected value="">
+                Select Status
+              </option>
+              <option value="Working">Working</option>
+              <option value="Retired">Retired</option>
+            </select>
+          </div>
+          {/* <div className="form-group mt-3">
             <input
               type="text"
               name="status"
               className="form-control"
               placeholder="Status"
             />
-          </div>
-          <button type="submit" className="button mt-4 ">
+          </div> */}
+          <button
+            type="submit"
+            className="button mt-4 "
+            onClick={this.handleUpdate}
+          >
             Update Employee
           </button>
         </form>
@@ -249,8 +268,9 @@ class EmpUpdate extends Component {
 
 const EmpUpdateWithParams = (props) => {
   const { empId } = useParams();
+  const navigate = useNavigate();
 
-  return <EmpUpdate empId={empId} {...props} />;
+  return <EmpUpdate empId={empId} {...props} navigate={navigate} />;
 };
 
 export default EmpUpdateWithParams;

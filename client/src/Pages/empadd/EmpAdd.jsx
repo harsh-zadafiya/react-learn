@@ -1,8 +1,35 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from "react-router-dom";
 
 class EmpAdd extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      first_name: "",
+      last_name: "",
+      age: "",
+      joining_date: "",
+      title: "",
+      dept: "",
+      emp_type: "",
+      status: "Working",
+      showmwssage: false,
+    };
+  }
+
+  handleChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  };
+
+  handleDateChange = (date) => {
+    this.setState({ joining_date: date });
+  };
+
   createEmployee = (emp) => {
     fetch("/graphql", {
       method: "POST",
@@ -27,41 +54,52 @@ class EmpAdd extends Component {
     })
       .then((res) => res.json())
       .then((body) => {
-        toast.success("Empployee Added");
+        const navigate = this.props.navigate;
+        navigate("/");
       });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
+    const {
+      first_name,
+      last_name,
+      age,
+      joining_date,
+      title,
+      dept,
+      emp_type,
+      status,
+    } = this.state;
 
-    //change issueAdd
-    const form = document.forms.empAdd;
-    //change createIssue
-    if (form.first_name.value === "") {
+    if (first_name === "") {
       toast.warn("Please add Your first name");
-    } else if (form.last_name.value === "") {
+    } else if (last_name === "") {
       toast.warn("Please add last name");
-    } else if (form.age.value === "" || isNaN(form.age.value)) {
+    } else if (age === "" || isNaN(age) || age < 20 || age > 65) {
       toast.warn("Please add valid Age");
     } else {
       this.createEmployee({
-        first_name: form.first_name.value,
-        last_name: form.last_name.value,
-        age: form.age.value,
-        joining_date: form.joining_date.value,
-        title: form.title.value,
-        dept: form.dept.value,
-        emp_type: form.emp_type.value,
-        status: form.status.value,
+        first_name,
+        last_name,
+        age,
+        joining_date,
+        title,
+        dept,
+        emp_type,
+        status,
       });
-      form.first_name.value = "";
-      form.last_name.value = "";
-      form.age.value = "";
-      form.joining_date.value = "";
-      form.title.value = "";
-      form.dept.value = "";
-      form.emp_type.value = "";
-      form.status.value = "Working";
+
+      this.setState({
+        first_name: "",
+        last_name: "",
+        age: "",
+        joining_date: "",
+        title: "",
+        dept: "",
+        emp_type: "",
+        status: "Working",
+      });
     }
   };
 
@@ -84,6 +122,8 @@ class EmpAdd extends Component {
             <input
               type="text"
               name="first_name"
+              value={this.state.first_name}
+              onChange={this.handleChange}
               className="form-control"
               placeholder="First Name"
             />
@@ -92,6 +132,8 @@ class EmpAdd extends Component {
             <input
               type="text"
               name="last_name"
+              value={this.state.last_name}
+              onChange={this.handleChange}
               className="form-control"
               placeholder="Last Name"
             />
@@ -100,20 +142,28 @@ class EmpAdd extends Component {
             <input
               type="text"
               name="age"
+              value={this.state.age}
+              onChange={this.handleChange}
               className="form-control"
               placeholder="Age"
             />
           </div>
           <div className="form-group mt-3">
-            <input
-              type="text"
-              name="joining_date"
+            <DatePicker
+              selected={this.state.joining_date}
+              onChange={this.handleDateChange}
+              dateFormat="yyyy-MM-dd"
               className="form-control"
-              placeholder="Joining Date"
+              placeholderText="Select Joining Date"
             />
           </div>
           <div className="form-group mt-3">
-            <select name="title" className="form-control">
+            <select
+              name="title"
+              value={this.state.title}
+              onChange={this.handleChange}
+              className="form-control"
+            >
               <option disabled selected value="">
                 Select Title
               </option>
@@ -124,7 +174,12 @@ class EmpAdd extends Component {
             </select>
           </div>
           <div className="form-group mt-3">
-            <select name="dept" className="form-control">
+            <select
+              name="dept"
+              value={this.state.dept}
+              onChange={this.handleChange}
+              className="form-control"
+            >
               <option disabled selected value="">
                 Select Department
               </option>
@@ -135,7 +190,12 @@ class EmpAdd extends Component {
             </select>
           </div>
           <div className="form-group mt-3">
-            <select name="emp_type" className="form-control">
+            <select
+              name="emp_type"
+              value={this.state.emp_type}
+              onChange={this.handleChange}
+              className="form-control"
+            >
               <option disabled selected value="">
                 Select Employment Type
               </option>
@@ -146,14 +206,20 @@ class EmpAdd extends Component {
             </select>
           </div>
           <div className="form-group mt-3">
-            <input
-              type="text"
+            <select
               name="status"
+              value={this.state.status}
+              onChange={this.handleChange}
               className="form-control"
-              placeholder="Status"
-            />
+            >
+              <option disabled selected value="">
+                Select Status
+              </option>
+              <option value="Working">Working</option>
+              <option value="Retired">Retired</option>
+            </select>
           </div>
-          <button type="submit" className="button mt-4 ">
+          <button type="submit" className="button mt-4">
             Add Employee
           </button>
         </form>
@@ -162,4 +228,9 @@ class EmpAdd extends Component {
   }
 }
 
-export default EmpAdd;
+const EmployeeAddWithNavigate = () => {
+  const navigate = useNavigate();
+
+  return <EmpAdd navigate={navigate} />;
+};
+export default EmployeeAddWithNavigate;
